@@ -3,7 +3,8 @@ CREATE Daily Email Count File
         1. Daily Sorted Emails
         2. Daily Recruitment Emails
         3. Daily Spam Emails
-        4. Daily Reception Emails
+        4. Daily Sales Emails
+        5. Daily Reception Emails
 
 CREATE Reset Daily Count File
     RESET values of Daily Email Count File to 0
