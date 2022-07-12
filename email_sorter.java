@@ -1,36 +1,50 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
-public class email_sorter implements Serializable{  
-        // static int dailyEmailSorted;
-        // static int dailyEmailRecruitment;
-        // static int dailyEmailSpam;
-        // static int dailyEmailSales;
-        // static int dailyEmailReception;
-        static String emailCV = "this is an example text containing cv";
-        static String emailPromo = "this is an example text containing promo";
-        static String emailAdvertising = "this is an example text containing advertising";
-        static String emailProposal = "this is an example text containing proposal";
-        static String emailEmpty = "this is an example text containing nothing";
-        static String[] listOfEmails = {emailCV, emailPromo, emailAdvertising, emailProposal, 
-            emailEmpty, emailAdvertising, emailCV, emailPromo};
-        static int logicalSize = 8;
+public class email_sorter{  
+
+        static String emailCV = "this is an example email containing cv";
+        static String emailPromo = "this is an example email containing promo";
+        static String emailAdvertising = "this is an example email containing advertising";
+        static String emailProposal = "this is an example email containing proposal";
+        static String emailEmpty = "this is an example email containing something else";
+
+        static int length = 100;
+        static int min = 0;
+        static int max = 4;
+        static int[] randomArray = IntStream.range(0, length)
+            .map(i -> (int) (min + Math.random() * (max - min + 1)))
+            .toArray();
+        
+        // static String[] listOfEmails = {emailCV, emailPromo, emailAdvertising, emailProposal, 
+        //     emailEmpty, emailAdvertising, emailCV, emailPromo};
+        static String[] listOfEmails = new String[100];
+        static int logicalSize = 100;
         static int totalEmailSorted = 0;
         static int totalEmailRecruitment = 0;
         static int totalEmailSpam = 0;
         static int totalEmailSales = 0;
         static int totalEmailReception = 0;
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
 
-        // Email sampleEmail = new Email();
-        // sampleEmail.sender = "Michael";
-        // sampleEmail.text = "this is an example text";
-        // Email sampleEmail2 = new Email();
-        // sampleEmail2.sender = "James";
-        // sampleEmail2.text = "this is also an example text";
-        // Email[] listOfSampleEmails = {sampleEmail, sampleEmail2};
-        // int sampleEmailsSorted = 0;
-        // int sampleAlsoEmails = 0;
+        
+        for (int i = 0; i < randomArray.length; i++){
+            if (randomArray[i] == 0){
+                listOfEmails[i] = emailCV;
+            } else if (randomArray[i] == 1){
+                listOfEmails[i] = emailAdvertising;
+            } else if (randomArray[i] == 2){
+                listOfEmails[i] = emailPromo;
+            } else if (randomArray[i] == 3){
+                listOfEmails[i] = emailProposal;
+            } else if (randomArray[i] == 4){
+                listOfEmails[i] = emailEmpty;
+            } else {
+                System.out.println("error with random list");
+            }
+        }
+        
 
         for (int i = 0; i < logicalSize; i=i){
             if (listOfEmails[0].contains("cv")){
