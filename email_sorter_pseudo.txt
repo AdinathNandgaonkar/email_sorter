@@ -1,0 +1,50 @@
+CREATE Daily Email Count File
+    Daily Email Count File should contain data of 
+        1. Daily Sorted Emails
+        2. Daily Recruitment Emails
+        3. Daily Spam Emails
+        4. Daily Reception Emails
+
+CREATE Reset Daily Count File
+    RESET values of Daily Email Count File to 0
+
+CREATE Email Sorter File
+
+    GET list of Emails
+    
+    FOR each Email in list 
+
+        if Email contains "cv" then
+            FORWARD Email to “recruitment@parkshark.com”
+            INCREMENT recruitment Emails by 1
+        else if Email contains "promo" or "advertising" then
+            FORWARD Email to “spam@parkshark.com”
+            INCREMENT spam Emails by 1
+        else if Email contains "proposal" then
+            FORWARD Email to “sales@parkshark.com”
+            INCREMENT sales Emails by 1
+        else 
+            FORWARD Email to “reception@parkshark.com”
+            INCREMENT reception Emails by 1
+
+        REMOVE Email from list
+        INCREMENT Emails sorted by 1
+    
+    IMPLEMENT a file reader (to GET data from Daily Email Count File)
+    STORE data in variable: (Current Daily Email Count)
+    ADD 'Current Daily Email Count' to 'Updated Email Count' for New Daily Total
+    IMPLEMENT a file writer (to UPDATE Daily Email Count File)
+
+    PRINT ("We have sorted" + Emails sorted + " mails: ")
+    PRINT (recruitment Emails + "to recruitment")
+    PRINT (spam Emails + "to spam")
+    PRINT (sales Emails + "to sales")
+    PRINT (reception Emails + "to reception")
+
+CREATE Show Daily Emails Count File
+    IMPLEMENT a file reader (to GET data from Daily Email Count File)
+    PRINT ("We have sorted a total of " + Emails sorted + " mails today: ")
+    PRINT (recruitment Emails + "to recruitment")
+    PRINT (spam Emails + "to spam")
+    PRINT (sales Emails + "to sales")
+    PRINT (reception Emails + "to reception")
