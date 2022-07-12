@@ -17,8 +17,6 @@ public class email_sorter{
             .map(i -> (int) (min + Math.random() * (max - min + 1)))
             .toArray();
         
-        // static String[] listOfEmails = {emailCV, emailPromo, emailAdvertising, emailProposal, 
-        //     emailEmpty, emailAdvertising, emailCV, emailPromo};
         static String[] listOfEmails = new String[100];
         static int logicalSize = 100;
         static int totalEmailSorted = 0;
@@ -48,34 +46,23 @@ public class email_sorter{
 
         for (int i = 0; i < logicalSize; i=i){
             if (listOfEmails[0].contains("cv")){
+                //FORWARD Email to “recruitment@parkshark.com”
                 totalEmailRecruitment++;
-                for (int n = 0; n < logicalSize - 1; n++){
-                    listOfEmails[n] = listOfEmails[n+1];
-                }
-                listOfEmails[logicalSize - 1] = "";
-                logicalSize--;
             } else if (listOfEmails[0].contains("promo") || listOfEmails[0].contains("advertising")){
+                //FORWARD Email to “spam@parkshark.com”
                 totalEmailSpam++;
-                for (int d = 0; d < logicalSize - 1; d++){
-                    listOfEmails[d] = listOfEmails[d+1];
-                }
-                listOfEmails[logicalSize - 1] = "";
-                logicalSize--;
             } else if (listOfEmails[0].contains("proposal")){
+                //FORWARD Email to “sales@parkshark.com”
                 totalEmailSales++;
-                for (int e = 0; e < logicalSize - 1; e++){
-                    listOfEmails[e] = listOfEmails[e+1];
-                }
-                listOfEmails[logicalSize - 1] = "";
-                logicalSize--;
             } else {
+                //FORWARD Email to “reception@parkshark.com”
                 totalEmailReception++;
-                for (int x = 0; x < logicalSize - 1; x++){
-                    listOfEmails[x] = listOfEmails[x+1];
-                }
-                listOfEmails[logicalSize - 1] = "";
-                logicalSize--;
             }
+            for (int n = 0; n < logicalSize - 1; n++){
+                listOfEmails[n] = listOfEmails[n+1];
+            }
+            listOfEmails[logicalSize - 1] = "";
+            logicalSize--;
             totalEmailSorted++;
         }
 
@@ -87,21 +74,13 @@ public class email_sorter{
         
         String memory = dailyEmailCount;
         int[] oldElements = Arrays.stream(memory.split(":")).mapToInt(Integer::parseInt).toArray ();
-        int[] newElements = Arrays.stream(memory.split(":")).mapToInt(Integer::parseInt).toArray ();
         String updatedElements = "";
-        
-        newElements[0] = totalEmailSorted;
-        newElements[1] = totalEmailRecruitment;
-        newElements[2] = totalEmailSpam;
-        newElements[3] = totalEmailSales;
-        newElements[4] = totalEmailReception;
-        
         int[] dailyTotal = new int[5];
-        dailyTotal[0] = oldElements[0] + newElements[0];
-        dailyTotal[1] = oldElements[1] + newElements[1];
-        dailyTotal[2] = oldElements[2] + newElements[2];
-        dailyTotal[3] = oldElements[3] + newElements[3];
-        dailyTotal[4] = oldElements[4] + newElements[4];
+        dailyTotal[0] = oldElements[0] + totalEmailSorted;
+        dailyTotal[1] = oldElements[1] + totalEmailRecruitment;
+        dailyTotal[2] = oldElements[2] + totalEmailSpam;
+        dailyTotal[3] = oldElements[3] + totalEmailSales;
+        dailyTotal[4] = oldElements[4] + totalEmailReception;
         
         StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < dailyTotal.length; i++) {
@@ -118,16 +97,19 @@ public class email_sorter{
         writer.write(updatedElements);
         writer.close();
         
+        System.out.println("");
+        System.out.println("We have sorted " + totalEmailSorted + " mails:");
+        System.out.println("    " + totalEmailRecruitment + " to recruitment");
+        System.out.println("    " + totalEmailSpam + " to spam");
+        System.out.println("    " + totalEmailSales + " to sales");
+        System.out.println("    " + totalEmailReception + " to reception");
+        System.out.println("");
+        // System.out.println("daily emails sorted " + dailyTotal[0]);
+        // System.out.println("daily emails recruitment " + dailyTotal[1]);
+        // System.out.println("daily emails spam " + dailyTotal[2]);
+        // System.out.println("daily emails sales " + dailyTotal[3]);
+        // System.out.println("daily emails reception " + dailyTotal[4]);
+        // System.out.println("");
         
-        System.out.println("total emails sorted " + totalEmailSorted);
-        System.out.println("total emails recruitment " + totalEmailRecruitment);
-        System.out.println("total emails spam " + totalEmailSpam);
-        System.out.println("total emails sales " + totalEmailSales);
-        System.out.println("total emails reception " + totalEmailReception);
-        System.out.println("daily emails sorted " + dailyTotal[0]);
-        System.out.println("daily emails recruitment " + dailyTotal[1]);
-        System.out.println("daily emails spam " + dailyTotal[2]);
-        System.out.println("daily emails sales " + dailyTotal[3]);
-        System.out.println("daily emails reception " + dailyTotal[4]);
     }
 }
